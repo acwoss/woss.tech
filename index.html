@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>woss.tech — engenharia de software e IA aplicada</title>
+<meta name="description" content="Blog de Anderson Woss sobre engenharia de software, arquitetura e inteligência artificial aplicada. Ensaios longos, com código e medição, sem hype.">
+<link rel="canonical" href="https://woss.tech/">
+
+<meta name="author" content="Anderson Woss">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0a" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="woss.tech">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="woss.tech — engenharia de software e IA aplicada">
+<meta property="og:description" content="Ensaios sobre engenharia de software, arquitetura e IA aplicada. Com código e medição, sem hype.">
+<meta property="og:url" content="https://woss.tech/">
+<meta property="og:image" content="https://woss.tech/assets/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="woss.tech — IA é a parte fácil. O resto é engenharia.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="woss.tech — engenharia de software e IA aplicada">
+<meta name="twitter:description" content="Ensaios sobre engenharia de software, arquitetura e IA aplicada. Com código e medição, sem hype.">
+<meta name="twitter:image" content="https://woss.tech/assets/og/home.png">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="woss.tech" href="/feed.xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/lista.css">
+<link rel="stylesheet" href="/css/home.css">
+
+<script>
+  // Tema antes do primeiro paint, senão a página pisca.
+  try {
+    var t = localStorage.getItem('tema');
+    if (t === 'claro' || t === 'escuro') {
+      document.documentElement.dataset.theme = t === 'claro' ? 'light' : 'dark';
+    }
+  } catch (e) {}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://woss.tech/#site",
+      "url": "https://woss.tech/",
+      "name": "woss.tech",
+      "description": "Ensaios sobre engenharia de software, arquitetura e inteligência artificial aplicada.",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://woss.tech/#autor" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://woss.tech/#autor",
+      "name": "Anderson Woss",
+      "url": "https://woss.tech/sobre.html",
+      "email": "anderson@woss.tech",
+      "jobTitle": "Engenheiro de software",
+      "sameAs": [
+        "https://github.com/acwoss",
+        "https://linkedin.com/in/woss"
+      ]
+    },
+    {
+      "@type": "Blog",
+      "@id": "https://woss.tech/#blog",
+      "url": "https://woss.tech/publicacoes/",
+      "name": "Publicações — woss.tech",
+      "inLanguage": "pt-BR",
+      "author": { "@id": "https://woss.tech/#autor" }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="nav">
+  <div class="nav__inner shell">
+    <a class="brand mono" href="/">woss<span class="brand__dot">.</span>tech</a>
+
+    <nav class="nav__links" aria-label="Seções do site">
+      <a href="/publicacoes/">Publicações</a>
+      <a href="#topicos">Tópicos</a>
+      <a href="/sobre.html">Sobre</a>
+      <a href="/feed.xml">RSS</a>
+    </nav>
+
+    <button class="theme-toggle mono" type="button" data-theme-toggle aria-live="polite">
+      <span class="theme-toggle__icon" aria-hidden="true"></span>
+      <span data-theme-label>escuro</span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════════════ HERO ══════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero__ascii" id="ascii-stage" aria-hidden="true">
+      <pre class="ascii ascii--dim" id="ascii-dim"></pre>
+      <pre class="ascii ascii--hot" id="ascii-hot"></pre>
+    </div>
+    <div class="hero__fade" aria-hidden="true"></div>
+
+    <div class="hero__inner shell">
+      <p class="hero__kicker mono">
+        <span class="dot" aria-hidden="true"></span>
+        ensaios de engenharia · ia aplicada<span class="hero__kicker-loc"> · são paulo</span>
+      </p>
+
+      <h1 class="hero__title">
+        IA é a parte fácil.<br>
+        O <em>resto</em> é engenharia.
+      </h1>
+
+      <p class="hero__lede">
+        Engenharia de software, arquitetura e inteligência artificial aplicada —
+        sem hype, com o código na mesa. Ensaios longos, notas curtas e o
+        registro honesto do que não funcionou.
+      </p>
+
+      <div class="hero__cta">
+        <a class="btn btn--solid" href="#conteudo">Ler as publicações</a>
+        <a class="btn btn--ghost mono" href="/sobre.html">quem escreve isso</a>
+      </div>
+
+      <p class="hero__term mono" aria-hidden="true">
+        <span class="term__prompt">~/woss.tech</span>
+        <span class="term__sep">$</span>
+        <span id="typer" data-frases='["engenharia de contexto &gt; engenharia de prompt","o modelo não sabe que não sabe","todo sistema distribuído é um problema de tempo","medir antes de otimizar, sempre"]'></span><span class="caret"></span>
+      </p>
+    </div>
+
+    <a class="hero__scroll mono" href="#conteudo">
+      <span>rolar</span>
+      <span class="hero__scroll-line" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ══════════════════════ ÚLTIMA PUBLICAÇÃO ══════════════════════
+       Região gerada por scripts/build.mjs a partir de publicacoes/*.html.
+       Não edite à mão: rode `npm run build`. -->
+  <section class="featured reveal" id="conteudo" aria-labelledby="destaque-titulo">
+    <div class="shell featured__grid">
+      <p class="section-label mono">01 — última publicação</p>
+      <!-- gerado:destaque -->
+      <article class="featured__card">
+        <p class="meta mono">
+          <a class="tag" href="/publicacoes/?topico=Engenharia">Engenharia</a>
+          <span class="sep">/</span><time datetime="2026-09-04">04 set 2026</time>
+          <span class="sep">/</span>5 min de leitura
+        </p>
+        <h2 class="featured__title" id="destaque-titulo">
+          <a href="/publicacoes/2026-09-04-um-blog-sem-framework.html">Um blog sem framework: o que ganhei e o que perdi</a>
+        </h2>
+        <p class="featured__excerpt">HTML escrito à mão, um arquivo por texto e um script que só gera o que é derivado. As decisões deste site, os dois defeitos que achei no caminho e o que custou.</p>
+        <a class="link-arrow mono" href="/publicacoes/2026-09-04-um-blog-sem-framework.html">
+          ler o ensaio completo <span aria-hidden="true">→</span>
+        </a>
+      </article>
+      <!-- /gerado:destaque -->
+      <aside class="featured__aside">
+        <pre class="glyph mono" id="destaque-selo" aria-hidden="true"></pre>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ MAIS PUBLICAÇÕES ══════════════════════ -->
+  <!-- gerado:recentes -->
+  <!-- nenhuma outra publicação ainda -->
+  <!-- /gerado:recentes -->
+
+  <!-- ══════════════════════ TÓPICOS ══════════════════════ -->
+  <section class="topics reveal" id="topicos" aria-labelledby="topicos-titulo">
+    <div class="shell">
+      <p class="section-label mono">03 — o que me ocupa</p>
+      <h2 class="section-title" id="topicos-titulo">Tópicos</h2>
+      <div class="topics__grid">
+        <!-- gerado:topicos -->
+        <a class="topic" href="/publicacoes/?topico=Engenharia">
+          <span class="topic__mark" aria-hidden="true">{}</span>
+          <h3 class="topic__name">Engenharia</h3>
+          <p class="topic__desc">Teste, revisão, entrega contínua e o ofício em si.</p>
+          <span class="topic__count">1 texto</span>
+        </a>
+        <!-- /gerado:topicos -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ SOBRE ══════════════════════ -->
+  <section class="about reveal" id="sobre" aria-labelledby="sobre-titulo">
+    <div class="shell about__grid">
+      <div>
+        <p class="section-label mono">04 — quem escreve</p>
+        <h2 class="section-title" id="sobre-titulo">Sobre</h2>
+      </div>
+
+      <div class="about__body">
+        <p>
+          Sou <strong>Anderson Woss</strong>, engenheiro de software. Passo os
+          dias entre sistemas distribuídos que precisam continuar de pé e
+          modelos de linguagem que precisam parar de inventar. Este é o lugar
+          onde eu penso devagar sobre as duas coisas.
+        </p>
+        <p>
+          Aqui não tem <em>thread</em> de dez tweets sobre a revolução da IA.
+          Tem código, medição, e a parte chata que sustenta o resto:
+          contrato de API, observabilidade, custo por requisição, teste que
+          pega o bug antes do cliente.
+        </p>
+        <ul class="about__links mono">
+          <li><a href="https://github.com/acwoss" rel="me noopener">github</a></li>
+          <li><a href="https://linkedin.com/in/woss" rel="me noopener">linkedin</a></li>
+          <li><a href="mailto:anderson@woss.tech">anderson@woss.tech</a></li>
+          <li><a href="/feed.xml">rss</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="shell footer__inner">
+    <p class="mono">© 2026 Anderson Woss · woss.tech — escrito à mão, sem CMS.</p>
+    <p class="mono footer__note">
+      <a href="https://github.com/acwoss/woss.tech" rel="noopener">código do site</a>
+      · <span id="ascii-nota">animação em pausa</span>
+    </p>
+  </div>
+</footer>
+
+<script defer src="/js/site.js"></script>
+<script defer src="/js/ascii.js"></script>
+<script defer src="/js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>woss.tech</title>
+    <link>https://woss.tech/</link>
+    <atom:link href="https://woss.tech/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Ensaios sobre engenharia de software, arquitetura e inteligência artificial aplicada.</description>
+    <language>pt-BR</language>
+    <copyright>© 2026 Anderson Woss</copyright>
+    <managingEditor>anderson@woss.tech (Anderson Woss)</managingEditor>
+    <webMaster>anderson@woss.tech (Anderson Woss)</webMaster>
+    <lastBuildDate>Fri, 04 Sep 2026 09:00:00 +0000</lastBuildDate>
+    <generator>scripts/build.mjs</generator>
+    <item>
+      <title>Um blog sem framework: o que ganhei e o que perdi</title>
+      <link>https://woss.tech/publicacoes/2026-09-04-um-blog-sem-framework.html</link>
+      <guid isPermaLink="true">https://woss.tech/publicacoes/2026-09-04-um-blog-sem-framework.html</guid>
+      <pubDate>Fri, 04 Sep 2026 09:00:00 +0000</pubDate>
+      <category>Engenharia</category>
+      <dc:creator>Anderson Woss</dc:creator>
+      <description>HTML escrito à mão, um arquivo por texto e um script que só gera o que é derivado. As decisões deste site, os dois defeitos que achei no caminho e o que custou.</description>
+    </item>
+  </channel>
+</rss>

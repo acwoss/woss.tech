@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Um blog sem framework: o que ganhei e o que perdi — woss.tech</title>
+<meta name="description" content="HTML escrito à mão, um arquivo por texto e um script que só gera o que é derivado. As decisões deste site, os dois defeitos que achei no caminho e o que custou.">
+<link rel="canonical" href="https://woss.tech/publicacoes/2026-09-04-um-blog-sem-framework.html">
+
+<meta name="author" content="Anderson Woss">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0a" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="woss.tech">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Um blog sem framework: o que ganhei e o que perdi">
+<meta property="og:description" content="HTML escrito à mão, um arquivo por texto e um script que só gera o que é derivado. As decisões, os defeitos e o custo.">
+<meta property="og:url" content="https://woss.tech/publicacoes/2026-09-04-um-blog-sem-framework.html">
+<meta property="og:image" content="https://woss.tech/assets/og/2026-09-04-um-blog-sem-framework.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Um blog sem framework: o que ganhei e o que perdi — woss.tech">
+<meta property="article:published_time" content="2026-09-04">
+<meta property="article:section" content="Engenharia">
+<meta property="article:author" content="Anderson Woss">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="site estático">
+<meta property="article:tag" content="Mermaid">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Um blog sem framework: o que ganhei e o que perdi">
+<meta name="twitter:description" content="HTML escrito à mão, um arquivo por texto e um script que só gera o que é derivado.">
+<meta name="twitter:image" content="https://woss.tech/assets/og/2026-09-04-um-blog-sem-framework.png">
+<meta name="twitter:label1" content="Tempo de leitura">
+<meta name="twitter:data1" content="5 min">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="woss.tech" href="/feed.xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/publicacao.css">
+
+<script>
+  try {
+    var t = localStorage.getItem('tema');
+    if (t === 'claro' || t === 'escuro') {
+      document.documentElement.dataset.theme = t === 'claro' ? 'light' : 'dark';
+    }
+  } catch (e) {}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Um blog sem framework: o que ganhei e o que perdi",
+  "description": "HTML escrito à mão, um arquivo por texto e um script que só gera o que é derivado. As decisões deste site, os dois defeitos que achei no caminho e o que custou.",
+  "url": "https://woss.tech/publicacoes/2026-09-04-um-blog-sem-framework.html",
+  "mainEntityOfPage": "https://woss.tech/publicacoes/2026-09-04-um-blog-sem-framework.html",
+  "datePublished": "2026-09-04",
+  "dateModified": "2026-09-04",
+  "inLanguage": "pt-BR",
+  "articleSection": "Engenharia",
+  "keywords": ["HTML", "site estático", "GitHub Pages", "Mermaid", "SEO"],
+  "image": "https://woss.tech/assets/og/2026-09-04-um-blog-sem-framework.png",
+  "wordCount": 934,
+  "author": {
+    "@type": "Person",
+    "@id": "https://woss.tech/#autor",
+    "name": "Anderson Woss",
+    "url": "https://woss.tech/sobre.html"
+  },
+  "publisher": {
+    "@type": "Person",
+    "@id": "https://woss.tech/#autor",
+    "name": "Anderson Woss"
+  },
+  "isPartOf": { "@type": "Blog", "@id": "https://woss.tech/#blog" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "woss.tech", "item": "https://woss.tech/" },
+    { "@type": "ListItem", "position": 2, "name": "Publicações", "item": "https://woss.tech/publicacoes/" },
+    { "@type": "ListItem", "position": 3, "name": "Um blog sem framework" }
+  ]
+}
+</script>
+
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.15.0/mermaid.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/javascript.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/bash.min.js"></script>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip-link" href="#artigo">Pular para o texto</a>
+
+<header class="nav">
+  <div class="nav__inner shell">
+    <a class="brand mono" href="/">woss<span class="brand__dot">.</span>tech</a>
+    <nav class="nav__links" aria-label="Seções do site">
+      <a href="/publicacoes/">Publicações</a>
+      <a href="/#topicos">Tópicos</a>
+      <a href="/sobre.html">Sobre</a>
+      <a href="/feed.xml">RSS</a>
+    </nav>
+    <button class="theme-toggle mono" type="button" data-theme-toggle aria-live="polite">
+      <span class="theme-toggle__icon" aria-hidden="true"></span>
+      <span data-theme-label>escuro</span>
+    </button>
+  </div>
+</header>
+
+<header class="post-head">
+  <div class="post-head__ascii" id="ascii-stage" aria-hidden="true">
+    <pre class="ascii ascii--dim" id="ascii-dim"></pre>
+    <pre class="ascii ascii--hot" id="ascii-hot"></pre>
+  </div>
+
+  <div class="shell post-head__inner">
+    <nav class="post-head__back mono" aria-label="Você está em">
+      <a href="/publicacoes/"><span aria-hidden="true">←</span> voltar ao arquivo</a>
+    </nav>
+
+    <p class="post-head__meta mono">
+      <a class="tag" href="/publicacoes/?topico=Engenharia">Engenharia</a>
+      <time datetime="2026-09-04">04 set 2026</time>
+      <span class="sep">·</span>
+      <span data-gerado="diagramas">3 diagramas</span>
+    </p>
+
+    <h1 class="post-title">
+      Um blog sem framework: o que <em>ganhei</em> e o que perdi
+    </h1>
+
+    <p class="post-standfirst">
+      Este site é HTML escrito à mão, um arquivo por publicação, e um script
+      que só gera o que é derivado. Eis as decisões, o que elas custam e os
+      dois defeitos que só apareceram depois de renderizar.
+    </p>
+  </div>
+</header>
+
+<div class="post-wrap">
+  <aside class="toc" id="toc" aria-label="Sumário"></aside>
+
+  <article class="article" id="artigo">
+
+    <p>
+      A pergunta que decide a arquitetura de um blog pessoal não é "qual
+      framework". É <strong>quantas vezes por ano você vai publicar</strong>.
+      Com duas dúzias de textos, o custo de manter um pipeline de build supera
+      o custo de escrever HTML — e o HTML não tem versão nem
+      <em>breaking change</em>.
+    </p>
+
+    <p>
+      Então este site não tem framework. Cada publicação é um arquivo
+      <code>.html</code> na pasta <code>publicacoes/</code>, servido direto
+      pelo GitHub Pages. Não há transpilação, hidratação nem
+      <em>bundle</em>. O que existe é um script de 380 linhas em Node, sem
+      dependência alguma, que gera <strong>só o que é derivado</strong>: a
+      lista de publicações, os cartões de tópico, o <code>feed.xml</code> e o
+      <code>sitemap.xml</code>.
+    </p>
+
+    <h2>A liberdade que o arquivo solto dá</h2>
+
+    <p>
+      O ganho principal não é performance — é que <strong>cada texto pode ter
+      a forma que o assunto pedir</strong>. Um ensaio sobre latência quer
+      gráfico; um sobre contrato de API quer tabela larga; este quer diagrama.
+      Num gerador de site estático isso vira briga com o template. Aqui é só
+      escrever a marcação.
+    </p>
+
+    <p>
+      O preço dessa liberdade é a falta de componentes: o <code>&lt;head&gt;</code>
+      de cada publicação repete umas quarenta linhas de <code>meta</code>. A
+      resposta não foi inventar um template — foi <strong>fazer o build
+      reclamar</strong>. Se falta <code>description</code>, se o
+      <code>canonical</code> aponta para o arquivo errado, se o nome do arquivo
+      não começa com a data de publicação, o build para e diz qual é o
+      problema.
+    </p>
+
+    <figure class="diagram bleed">
+      <div class="diagram__canvas">
+<pre class="mermaid">
+flowchart TD
+    E["escreve o .html"] --> B["npm run build"]
+    B --> V{"metadados completos?"}
+    V -- "não" --> F["para e diz qual campo falta"]
+    F --> E
+    V -- "sim" --> G["gera lista, tópicos, feed e sitemap"]
+    G --> O["npm run og"]
+    O --> C["commit e push na main"]
+    C --> P(["GitHub Pages publica"])
+</pre>
+      </div>
+      <figcaption>
+        Publicar é isto. A caixa de decisão é a única coisa que me protege de
+        subir um texto sem metadado — não há revisor.
+      </figcaption>
+    </figure>
+
+    <h2>Fonte única de verdade</h2>
+
+    <p>
+      A tentação óbvia num site assim é manter um <code>posts.json</code> com a
+      lista de publicações. É também o jeito garantido de ter uma lista que
+      discorda dos arquivos. Aqui a fonte de verdade são <strong>as próprias
+      publicações</strong>: o script lê os <code>meta</code> de cada uma e
+      deriva o resto.
+    </p>
+
+    <p>
+      Até o tempo de leitura é contado, não digitado — e conta só a prosa,
+      porque ninguém lê um diagrama a duzentas palavras por minuto:
+    </p>
+
+    <figure class="code bleed">
+      <div class="code__bar">
+        <span class="code__lang mono">javascript <span class="code__file">· scripts/build.mjs</span></span>
+        <button class="code__copy mono" type="button">copiar</button>
+      </div>
+<pre><code class="language-javascript">function minutosDeLeitura(html) {
+  const corpo = html.match(/&lt;article[^&gt;]*&gt;([\s\S]*?)&lt;\/article&gt;/i);
+  if (!corpo) return null;
+
+  const prosa = corpo[1]
+    .replace(/&lt;pre[\s\S]*?&lt;\/pre&gt;/gi, ' ')          // código e diagrama fora
+    .replace(/&lt;figcaption[\s\S]*?&lt;\/figcaption&gt;/gi, ' ')
+    .replace(/&lt;[^&gt;]+&gt;/g, ' ')
+    .replace(/&amp;[a-z]+;|&amp;#\d+;/gi, ' ');
+
+  const palavras = prosa.split(/\s+/).filter((p) =&gt; p.length &gt; 1).length;
+  return Math.max(1, Math.round(palavras / 200));
+}</code></pre>
+      <figcaption>
+        Regex em HTML é dívida técnica — aceitável aqui porque eu escrevo o
+        HTML, o formato é meu e o build quebra alto quando não casa.
+      </figcaption>
+    </figure>
+
+    <aside class="callout callout--nota">
+      <p class="callout__label mono" data-marca="[i]">o que a CI faz</p>
+      <p>
+        O mesmo script roda com <code>--check</code> no GitHub Actions e falha
+        se algum arquivo derivado estiver desatualizado. É o que impede um
+        <em>push</em> em que eu editei o texto e esqueci de regerar o feed.
+      </p>
+    </aside>
+
+    <h2>Tema claro e escuro sem duplicar CSS</h2>
+
+    <p>
+      Toda cor do site é um <em>custom property</em> no <code>:root</code>, com
+      um bloco para o tema escuro. A troca de tema é um atributo no
+      <code>&lt;html&gt;</code> — o CSS faz o resto sozinho.
+    </p>
+
+    <p>
+      Sozinho, exceto num lugar: <strong>diagrama</strong>. O SVG que o Mermaid
+      gera carrega a cor <em>embutida</em> em cada forma, e não herda
+      <em>custom property</em>. Trocar o tema exige redesenhar. É a única parte
+      do site em que o JavaScript precisa saber que cor é a cor.
+    </p>
+
+    <figure class="diagram bleed">
+      <div class="diagram__canvas">
+<pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant P as Pessoa
+    participant S as site.js
+    participant C as CSS
+    participant M as Mermaid
+
+    P->>S: clica no tema
+    S->>C: grava data-theme
+    Note over C: os tokens --mm-* mudam
+    S->>M: dispara tema:mudou
+    M->>C: lê as cores novas
+    M->>M: redesenha
+</pre>
+      </div>
+      <figcaption>
+        O evento existe para o site.js não precisar conhecer o Mermaid. Quem
+        depende de cor se inscreve; quem não depende, ignora.
+      </figcaption>
+    </figure>
+
+    <p>
+      Para o Mermaid não ficar com a paleta dele, as cores saem dos mesmos
+      tokens do site, lidos em tempo de execução:
+    </p>
+
+    <figure class="code bleed">
+      <div class="code__bar">
+        <span class="code__lang mono">javascript <span class="code__file">· js/publicacao.js</span></span>
+        <button class="code__copy mono" type="button">copiar</button>
+      </div>
+<pre><code class="language-javascript">// o SVG carrega cor embutida: trocar o tema exige redesenhar
+document.addEventListener('tema:mudou', function () { desenhar(); });
+
+function cor(nome) {
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue(nome).trim();
+}</code></pre>
+      <figcaption>
+        Os tokens do diagrama (<code>--mm-node</code>, <code>--mm-line</code>…)
+        são cores <strong>sólidas</strong> de propósito: o Mermaid faz conta com
+        elas para derivar tons, e derivar a partir de <code>rgba()</code> com
+        alfa produz resultado errado.
+      </figcaption>
+    </figure>
+
+    <h2>Dois defeitos que só apareceram depois de renderizar</h2>
+
+    <p>
+      Nenhum dos dois aparece lendo o código. Os dois apareceram olhando a
+      página pronta — que é o argumento a favor de sempre olhar a página
+      pronta.
+    </p>
+
+    <h3>O <code>&lt;br/&gt;</code> que desaparece</h3>
+
+    <p>
+      No Mermaid 11.15, <code>&lt;br/&gt;</code> dentro de rótulo de nó não
+      quebra a linha: a tag é removida <strong>e o espaço em volta é
+      engolido</strong>. Um rótulo escrito
+      <code>"cabe na&lt;br/&gt;janela?"</code> aparece na tela como
+      <em>cabe najanela?</em>. Não muda com <code>htmlLabels</code> ligado nem
+      desligado. A saída é escrever o rótulo corrido e deixar a quebra
+      automática agir.<sup class="ref"><a href="#nota-1" id="ref-1">1</a></sup>
+    </p>
+
+    <h3>A fonte que mente</h3>
+
+    <aside class="callout callout--atencao">
+      <p class="callout__label mono" data-marca="[!]">ligadura em bloco de código</p>
+      <p>
+        A JetBrains Mono desenha <code>!=</code> como um sinal de diferente e
+        <code>-&gt;</code> como uma flecha. Num texto comum é bonito; num bloco
+        de código é <strong>mentira</strong>: o leitor vê um caractere que não
+        está no código e que não vem quando ele copia. Ligadura desligada em
+        <code>pre</code> e <code>code</code>, e é uma regra que vale para
+        qualquer lugar onde se publique código com essa fonte.
+      </p>
+    </aside>
+
+    <h2>Diagrama: encolher ou rolar</h2>
+
+    <p>
+      O Mermaid tem uma opção, <code>useMaxWidth</code>, que decide se o desenho
+      encaixa na largura disponível ou fica no tamanho natural. Ela parece
+      cosmética e não é: encaixar o SVG numa coluna <strong>encolhe o rótulo na
+      mesma proporção</strong>. Um diagrama de 1750px numa coluna de 930px vira
+      43% do tamanho, e um rótulo de 12px vira um borrão de 5px.
+    </p>
+
+    <p>
+      A escolha aqui foi: <strong>no desktop, encaixar</strong> — diagrama sem
+      moldura e sem barra de rolagem, parte do texto. Para isso o rótulo é
+      definido grande (15px) e o diagrama é mantido estreito, de modo que na
+      prática ele nem reduz. <strong>Abaixo de 900px a regra inverte</strong>:
+      encaixar daria 6px, então o desenho volta ao tamanho natural e se arrasta
+      com o dedo — gesto nativo, que no celular não desenha barra nenhuma.
+    </p>
+
+    <div class="table-wrap bleed">
+      <table>
+        <thead>
+          <tr>
+            <th>Decisão</th>
+            <th>Ganho</th>
+            <th>O que custa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Um arquivo <code>.html</code> por texto</td>
+            <td>Cada publicação tem a forma que o assunto pedir</td>
+            <td><code>&lt;head&gt;</code> repetido; o build valida no lugar do template</td>
+          </tr>
+          <tr>
+            <td>Lista de publicações em HTML estático</td>
+            <td>Indexável e legível sem JavaScript</td>
+            <td>Precisa ser regerada; a CI falha se esquecer</td>
+          </tr>
+          <tr>
+            <td>Metadados nas próprias publicações</td>
+            <td>Nenhuma lista para discordar dos arquivos</td>
+            <td>Regex em HTML no script de build</td>
+          </tr>
+          <tr>
+            <td>Mermaid por CDN</td>
+            <td>Diagrama versionado como texto, no meio do texto</td>
+            <td>3,3 MB de JavaScript em quem abre uma publicação com diagrama</td>
+          </tr>
+          <tr>
+            <td>GitHub Pages a partir da <code>main</code></td>
+            <td>Publicar é <code>git push</code></td>
+            <td>Sem ambiente de <em>staging</em>; a revisão é o Pull Request</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>O ciclo de vida de uma publicação</h2>
+
+    <p>
+      Há um estado nessa máquina que quase todo blog esquece de desenhar, e é o
+      mais importante: <strong>corrigida</strong>. Texto técnico envelhece, e
+      afirmação que se provou falsa merece correção datada no próprio texto, não
+      exclusão silenciosa.
+    </p>
+
+    <figure class="diagram bleed">
+      <div class="diagram__canvas">
+<pre class="mermaid">
+stateDiagram-v2
+    [*] --> Rascunho
+    Rascunho --> Rascunho: build reclama
+    Rascunho --> Revisão: build passa
+    Revisão --> Publicada: merge na main
+    Publicada --> Corrigida: achei um erro
+    Corrigida --> Publicada: nota com a data
+    Publicada --> [*]
+
+    note right of Corrigida
+        a correção fica
+        no texto, datada
+    end note
+</pre>
+      </div>
+      <figcaption>
+        O laço <em>Rascunho → Rascunho</em> é o build reclamando de metadado
+        faltando. O laço pela <em>Corrigida</em> é o que mantém o arquivo
+        honesto com o tempo.
+      </figcaption>
+    </figure>
+
+    <h2>Quando isso é a escolha errada</h2>
+
+    <p>
+      Escrever HTML à mão deixa de valer a pena rápido em três situações, e
+      nenhuma delas é "o site cresceu":
+    </p>
+
+    <ol>
+      <li>
+        <strong>Mais de um autor.</strong> Convenção que vive num
+        <code>README</code> não sobrevive à segunda pessoa; aí um template
+        obrigatório passa a valer mais que a liberdade.
+      </li>
+      <li>
+        <strong>Publicação frequente.</strong> Se o texto sai toda semana, as
+        quarenta linhas de <code>&lt;head&gt;</code> repetidas viram um imposto
+        real.
+      </li>
+      <li>
+        <strong>Conteúdo que vira dado.</strong> No momento em que você quer
+        busca, listas relacionadas ou paginação por tag, você quer um índice —
+        e um índice é um banco de dados esperando para nascer.
+      </li>
+    </ol>
+
+    <p>
+      Nada disso se aplica a um blog pessoal com um autor e uma dúzia de textos
+      por ano. Enquanto não se aplicar, o arquivo <code>.html</code> continua
+      sendo a coisa mais durável que se pode escrever para a
+      web.<sup class="ref"><a href="#nota-2" id="ref-2">2</a></sup>
+    </p>
+
+    <hr>
+
+    <section class="footnotes">
+      <p class="callout__label mono" data-marca="[†]">notas</p>
+      <ol>
+        <li id="nota-1">
+          Em bloco <code>note</code> de diagrama de sequência ou de estado, a
+          quebra de linha no próprio fonte funciona normalmente — é o jeito de
+          ter nota em várias linhas.
+          <a class="volta" href="#ref-1" aria-label="Voltar ao texto">↩</a>
+        </li>
+        <li id="nota-2">
+          O código deste site é aberto:
+          <a href="https://github.com/acwoss/woss.tech" rel="noopener">github.com/acwoss/woss.tech</a>.
+          As convenções de publicação estão no <code>CLAUDE.md</code> e no
+          modelo comentado em <code>docs/</code>.
+          <a class="volta" href="#ref-2" aria-label="Voltar ao texto">↩</a>
+        </li>
+      </ol>
+    </section>
+
+  </article>
+</div>
+
+<section class="post-end">
+  <div class="shell post-end__grid">
+    <div class="autor">
+      <div class="autor__selo mono" aria-hidden="true">AW</div>
+      <div>
+        <p class="autor__nome">Anderson Woss</p>
+        <p>
+          Engenheiro de software. Escrevo aqui sobre sistemas distribuídos que
+          precisam continuar de pé e modelos que precisam parar de inventar.
+        </p>
+        <ul class="autor__links">
+          <li><a href="https://github.com/acwoss" rel="me noopener">github</a></li>
+          <li><a href="https://linkedin.com/in/woss" rel="me noopener">linkedin</a></li>
+          <li><a href="mailto:anderson@woss.tech">anderson@woss.tech</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="vizinhos" aria-label="Outras publicações">
+      <a class="vizinho" href="/publicacoes/">
+        <span class="vizinho__dir mono">arquivo →</span>
+        <span class="vizinho__titulo">Ver todas as publicações</span>
+      </a>
+      <a class="vizinho" href="/feed.xml">
+        <span class="vizinho__dir mono">rss →</span>
+        <span class="vizinho__titulo">Assinar o feed</span>
+      </a>
+    </nav>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="shell footer__inner">
+    <p class="mono">© 2026 Anderson Woss · woss.tech — escrito à mão, sem CMS.</p>
+    <p class="mono footer__note">
+      publicado em 04 set 2026 · <a href="https://github.com/acwoss/woss.tech" rel="noopener">código do site</a>
+    </p>
+  </div>
+</footer>
+
+<script defer src="/js/site.js"></script>
+<script defer src="/js/ascii.js"></script>
+<script defer src="/js/publicacao.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    if (window.hljs) window.hljs.highlightAll();
+  });
+</script>
+</body>
+</html>

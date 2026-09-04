@@ -1,0 +1,346 @@
+<!doctype html>
+<!--
+  ┌──────────────────────────────────────────────────────────────────┐
+  │  MODELO DE PUBLICAÇÃO — woss.tech                                │
+  │                                                                  │
+  │  Copie para  publicacoes/AAAA-MM-DD-slug-em-kebab-case.html      │
+  │  e troque tudo que está em MAIÚSCULA.                            │
+  │                                                                  │
+  │  Depois: `npm run build` (valida e gera a lista, o feed e o       │
+  │  sitemap) e `npm run og` (gera o cartão de compartilhamento).     │
+  │  O build FALHA se faltar metadado — é ele que faz o papel de      │
+  │  revisor.                                                        │
+  │                                                                  │
+  │  Na dúvida sobre a marcação de algum componente, copie da         │
+  │  publicação mais recente em publicacoes/ — ela é a referência     │
+  │  viva. As regras estão no CLAUDE.md, na raiz.                     │
+  └──────────────────────────────────────────────────────────────────┘
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+
+<!-- No máximo 65 caracteres CONTANDO " — woss.tech". O build confere. -->
+<title>TÍTULO — woss.tech</title>
+<!-- No máximo 165 caracteres. O build confere. -->
+<meta name="description" content="UMA FRASE. É o que aparece no Google e no card de compartilhamento.">
+<link rel="canonical" href="https://woss.tech/publicacoes/AAAA-MM-DD-SLUG.html">
+
+<meta name="author" content="Anderson Woss">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0a" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="woss.tech">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="TÍTULO">
+<meta property="og:description" content="A MESMA FRASE, ou uma versão mais curta.">
+<meta property="og:url" content="https://woss.tech/publicacoes/AAAA-MM-DD-SLUG.html">
+<meta property="og:image" content="https://woss.tech/assets/og/AAAA-MM-DD-SLUG.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TÍTULO — woss.tech">
+<!-- AAAA-MM-DD, e tem de casar com o começo do nome do arquivo -->
+<meta property="article:published_time" content="AAAA-MM-DD">
+<!-- IA | Arquitetura | Engenharia | Observabilidade
+     Tópico novo precisa ser adicionado em TOPICOS, em scripts/build.mjs -->
+<meta property="article:section" content="Engenharia">
+<meta property="article:author" content="Anderson Woss">
+<meta property="article:tag" content="PALAVRA-CHAVE">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TÍTULO">
+<meta name="twitter:description" content="A MESMA FRASE.">
+<meta name="twitter:image" content="https://woss.tech/assets/og/AAAA-MM-DD-SLUG.png">
+<meta name="twitter:label1" content="Tempo de leitura">
+<!-- o build reescreve este valor: não calcule à mão -->
+<meta name="twitter:data1" content="0 min">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="woss.tech" href="/feed.xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/publicacao.css">
+
+<!-- Tema antes do primeiro paint, senão a página pisca de branco. -->
+<script>
+  try {
+    var t = localStorage.getItem('tema');
+    if (t === 'claro' || t === 'escuro') {
+      document.documentElement.dataset.theme = t === 'claro' ? 'light' : 'dark';
+    }
+  } catch (e) {}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "TÍTULO",
+  "description": "A MESMA FRASE.",
+  "url": "https://woss.tech/publicacoes/AAAA-MM-DD-SLUG.html",
+  "mainEntityOfPage": "https://woss.tech/publicacoes/AAAA-MM-DD-SLUG.html",
+  "datePublished": "AAAA-MM-DD",
+  "dateModified": "AAAA-MM-DD",
+  "inLanguage": "pt-BR",
+  "articleSection": "Engenharia",
+  "keywords": ["PALAVRA", "CHAVE"],
+  "image": "https://woss.tech/assets/og/AAAA-MM-DD-SLUG.png",
+  "wordCount": 0,
+  "author": {
+    "@type": "Person",
+    "@id": "https://woss.tech/#autor",
+    "name": "Anderson Woss",
+    "url": "https://woss.tech/sobre.html"
+  },
+  "publisher": {
+    "@type": "Person",
+    "@id": "https://woss.tech/#autor",
+    "name": "Anderson Woss"
+  },
+  "isPartOf": { "@type": "Blog", "@id": "https://woss.tech/#blog" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "woss.tech", "item": "https://woss.tech/" },
+    { "@type": "ListItem", "position": 2, "name": "Publicações", "item": "https://woss.tech/publicacoes/" },
+    { "@type": "ListItem", "position": 3, "name": "TÍTULO CURTO" }
+  ]
+}
+</script>
+
+<!-- Só o que a publicação usa. O Mermaid tem 3,3 MB: sem diagrama,
+     apague a linha. Versão SEMPRE fixa, nunca "latest". -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.15.0/mermaid.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/python.min.js"></script>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip-link" href="#artigo">Pular para o texto</a>
+
+<header class="nav">
+  <div class="nav__inner shell">
+    <a class="brand mono" href="/">woss<span class="brand__dot">.</span>tech</a>
+    <nav class="nav__links" aria-label="Seções do site">
+      <a href="/publicacoes/">Publicações</a>
+      <a href="/#topicos">Tópicos</a>
+      <a href="/sobre.html">Sobre</a>
+      <a href="/feed.xml">RSS</a>
+    </nav>
+    <button class="theme-toggle mono" type="button" data-theme-toggle aria-live="polite">
+      <span class="theme-toggle__icon" aria-hidden="true"></span>
+      <span data-theme-label>escuro</span>
+    </button>
+  </div>
+</header>
+
+<header class="post-head">
+  <!-- Faixa ASCII: opcional. Sem ela, apague a div e o ascii.js no fim. -->
+  <div class="post-head__ascii" id="ascii-stage" aria-hidden="true">
+    <pre class="ascii ascii--dim" id="ascii-dim"></pre>
+    <pre class="ascii ascii--hot" id="ascii-hot"></pre>
+  </div>
+
+  <div class="shell post-head__inner">
+    <nav class="post-head__back mono" aria-label="Você está em">
+      <a href="/publicacoes/"><span aria-hidden="true">←</span> voltar ao arquivo</a>
+    </nav>
+
+    <p class="post-head__meta mono">
+      <a class="tag" href="/publicacoes/?topico=Engenharia">Engenharia</a>
+      <time datetime="AAAA-MM-DD">DD mmm AAAA</time>
+      <span class="sep">·</span>
+      <!-- o build reescreve este texto -->
+      <span data-gerado="diagramas">0 diagramas</span>
+    </p>
+
+    <h1 class="post-title">Título, com uma palavra em <em>ênfase</em></h1>
+
+    <p class="post-standfirst">
+      A tese em uma frase. Se não couber em uma frase, o texto ainda não está
+      pronto.
+    </p>
+  </div>
+</header>
+
+<div class="post-wrap">
+  <!-- O sumário se preenche sozinho a partir dos h2/h3 do artigo.
+       Com menos de dois títulos ele se esconde. -->
+  <aside class="toc" id="toc" aria-label="Sumário"></aside>
+
+  <article class="article" id="artigo">
+
+    <!-- O primeiro parágrafo recebe capitular automática. Comece por uma
+         afirmação, não por um aquecimento. -->
+    <p>
+      Primeiro parágrafo. <strong>Negrito</strong> para o que o leitor
+      apressado precisa ver, <em>itálico</em> para termo estrangeiro,
+      <code>código</code> para nome de coisa, e <a href="#">link</a> quando
+      há para onde ir.
+    </p>
+
+    <h2>Um título de seção</h2>
+
+    <p>Texto. A medida de leitura é 68ch e não deve ser esticada.</p>
+
+    <h3>Um subtítulo</h3>
+
+    <p>Texto.</p>
+
+    <!-- ══════════ DIAGRAMA (Mermaid) ══════════
+         `bleed` faz a figura ocupar mais que a medida do texto. O diagrama
+         não tem moldura: sem borda, sem fundo e sem barra de rolagem — ele
+         é parte do texto.
+         Regras que doem se ignoradas:
+           · <br/> em rótulo de nó NÃO funciona: o Mermaid 11.15 remove a
+             tag E engole o espaço em volta. Escreva o rótulo corrido.
+           · Em bloco `note`, quebra de linha no FONTE funciona.
+           · Largura natural até ~840px. Acima disso o desenho é reduzido
+             para caber e o rótulo encolhe junto. Vertical costuma caber;
+             `direction LR` costuma não.
+           · Toda figura tem legenda dizendo o que olhar. A numeração
+             ("fig. 1 —") é um contador CSS: não escreva à mão.
+           · Se a legenda citar número de passo, confira que o passo ainda
+             existe depois de mexer no diagrama.
+    -->
+    <figure class="diagram bleed">
+      <div class="diagram__canvas">
+<pre class="mermaid">
+flowchart TD
+    A(["início"]) --> B{"decide?"}
+    B -- "sim" --> C["faz a coisa"]
+    B -- "não" --> D(["fim"])
+    C --> D
+</pre>
+      </div>
+      <figcaption>
+        O que o leitor deve notar no desenho — não uma repetição do texto.
+      </figcaption>
+    </figure>
+
+    <!-- ══════════ CÓDIGO ══════════
+         `language-xxx` precisa casar com um arquivo de linguagem carregado
+         no <head>. Sem realce a página não quebra.
+         Ligaduras estão desligadas: != aparece como != mesmo. -->
+    <figure class="code bleed">
+      <div class="code__bar">
+        <span class="code__lang mono">python <span class="code__file">· caminho/do/arquivo.py</span></span>
+        <button class="code__copy mono" type="button">copiar</button>
+      </div>
+<pre><code class="language-python">def exemplo() -> None:
+    return None
+</code></pre>
+      <figcaption>Legenda opcional. Use para o que o código não diz.</figcaption>
+    </figure>
+
+    <!-- ══════════ CALLOUT ══════════ --nota (neutro) ou --atencao (acento).
+         Dois por texto já é demais. -->
+    <aside class="callout callout--nota">
+      <p class="callout__label mono" data-marca="[i]">nota de método</p>
+      <p>Um aparte que o leitor pode pular sem perder o fio.</p>
+    </aside>
+
+    <!-- ══════════ TABELA ══════════ sempre dentro de .table-wrap -->
+    <div class="table-wrap bleed">
+      <table>
+        <thead>
+          <tr><th>Coluna</th><th>Número</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Linha</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══════════ CITAÇÃO ══════════ -->
+    <blockquote>
+      <p>Uma frase que vale ser lida sozinha.</p>
+      <cite>— quem disse, onde</cite>
+    </blockquote>
+
+    <!-- ══════════ NOTA DE PÉ ══════════ -->
+    <p>
+      Afirmação com ressalva.<sup class="ref"><a href="#nota-1" id="ref-1">1</a></sup>
+    </p>
+
+    <hr>
+
+    <section class="footnotes">
+      <p class="callout__label mono" data-marca="[†]">notas</p>
+      <ol>
+        <li id="nota-1">
+          A ressalva.
+          <a class="volta" href="#ref-1" aria-label="Voltar ao texto">↩</a>
+        </li>
+      </ol>
+    </section>
+
+  </article>
+</div>
+
+<section class="post-end">
+  <div class="shell post-end__grid">
+    <div class="autor">
+      <div class="autor__selo mono" aria-hidden="true">AW</div>
+      <div>
+        <p class="autor__nome">Anderson Woss</p>
+        <p>
+          Engenheiro de software. Escrevo aqui sobre sistemas distribuídos que
+          precisam continuar de pé e modelos que precisam parar de inventar.
+        </p>
+        <ul class="autor__links">
+          <li><a href="https://github.com/acwoss" rel="me noopener">github</a></li>
+          <li><a href="https://linkedin.com/in/woss" rel="me noopener">linkedin</a></li>
+          <li><a href="mailto:anderson@woss.tech">anderson@woss.tech</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <nav class="vizinhos" aria-label="Outras publicações">
+      <a class="vizinho" href="/publicacoes/">
+        <span class="vizinho__dir mono">arquivo →</span>
+        <span class="vizinho__titulo">Ver todas as publicações</span>
+      </a>
+      <a class="vizinho" href="/feed.xml">
+        <span class="vizinho__dir mono">rss →</span>
+        <span class="vizinho__titulo">Assinar o feed</span>
+      </a>
+    </nav>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="shell footer__inner">
+    <p class="mono">© 2026 Anderson Woss · woss.tech — escrito à mão, sem CMS.</p>
+    <p class="mono footer__note">
+      publicado em DD mmm AAAA · <a href="https://github.com/acwoss/woss.tech" rel="noopener">código do site</a>
+    </p>
+  </div>
+</footer>
+
+<!-- Nesta ordem: site.js sempre primeiro. -->
+<script defer src="/js/site.js"></script>
+<script defer src="/js/ascii.js"></script>
+<script defer src="/js/publicacao.js"></script>
+<script>
+  window.addEventListener('load', function () {
+    if (window.hljs) window.hljs.highlightAll();
+  });
+</script>
+</body>
+</html>
