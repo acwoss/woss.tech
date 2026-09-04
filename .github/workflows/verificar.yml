@@ -1,0 +1,133 @@
+name: verificar
+
+# O Pages publica direto da main; esta CI não faz deploy, só impede
+# que suba coisa quebrada.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Arquivos derivados estão em dia
+        run: npm run check
+
+      - name: Nada além do esperado mudou
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::o build alterou arquivos — rode 'npm run build' e comite o resultado"
+            git status --porcelain
+            git diff
+            exit 1
+          fi
+
+      - name: Sintaxe do JavaScript
+        run: |
+          for f in js/*.js; do node --check "$f" || exit 1; done
+          for f in scripts/*.mjs; do node --check "$f" || exit 1; done
+          echo "ok: $(ls js/*.js scripts/*.mjs | wc -l) arquivos"
+
+      - name: XML bem formado
+        run: |
+          python3 -c "
+          import sys, xml.etree.ElementTree as ET
+          for f in ['feed.xml', 'sitemap.xml', 'manifest.webmanifest']:
+              if f.endswith('.xml'):
+                  ET.parse(f)
+                  print('ok', f)
+          import json
+          json.load(open('manifest.webmanifest'))
+          print('ok manifest.webmanifest')
+          "
+
+      - name: JSON-LD válido em toda página
+        run: |
+          python3 - <<'PY'
+          import glob, json, re, sys
+          erros = 0
+          for arq in glob.glob('*.html') + glob.glob('publicacoes/*.html'):
+              html = open(arq, encoding='utf-8').read()
+              blocos = re.findall(
+                  r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
+              if not blocos and not arq.endswith('404.html'):
+                  print(f'::warning file={arq}::sem JSON-LD')
+              for i, b in enumerate(blocos):
+                  try:
+                      json.loads(b)
+                  except Exception as e:
+                      print(f'::error file={arq}::JSON-LD #{i+1} inválido: {e}')
+                      erros += 1
+              print('ok', arq, f'({len(blocos)} bloco(s))')
+          sys.exit(1 if erros else 0)
+          PY
+
+      - name: Metadados de SEO obrigatórios
+        run: |
+          python3 - <<'PY'
+          import glob, re, sys
+          OBRIG = ['description', 'og:title', 'og:description', 'og:image', 'og:url']
+          erros = 0
+          for arq in glob.glob('*.html') + glob.glob('publicacoes/*.html'):
+              if arq == '404.html':
+                  continue
+              html = open(arq, encoding='utf-8').read()
+              faltando = [m for m in OBRIG
+                          if not re.search(rf'(?:name|property)="{re.escape(m)}"', html)]
+              if '<link rel="canonical"' not in html:
+                  faltando.append('canonical')
+              if faltando:
+                  print(f'::error file={arq}::falta {", ".join(faltando)}')
+                  erros += 1
+              else:
+                  print('ok', arq)
+          sys.exit(1 if erros else 0)
+          PY
+
+      - name: Links internos não quebrados
+        run: |
+          python3 - <<'PY'
+          import glob, os, re, sys
+          from urllib.parse import urlparse, unquote
+          erros = 0
+          paginas = glob.glob('*.html') + glob.glob('publicacoes/*.html') + glob.glob('docs/*.html')
+          for arq in paginas:
+              html = open(arq, encoding='utf-8').read()
+              for href in re.findall(r'(?:href|src)="([^"]+)"', html):
+                  if href.startswith(('http', 'mailto:', '#', 'data:')):
+                      continue
+                  destino = unquote(urlparse(href).path)
+                  if not destino:
+                      continue
+                  if destino.startswith('/'):
+                      alvo = destino.lstrip('/')
+                  else:
+                      alvo = os.path.normpath(os.path.join(os.path.dirname(arq), destino))
+                  # "/" e "/publicacoes/" servem o index.html do diretório
+                  if alvo == '' or alvo.endswith(('/', os.sep)):
+                      alvo = os.path.join(alvo, 'index.html')
+                  if not os.path.exists(alvo):
+                      print(f'::error file={arq}::link quebrado: {href} -> {alvo}')
+                      erros += 1
+          print('ok' if not erros else f'{erros} link(s) quebrado(s)')
+          sys.exit(1 if erros else 0)
+          PY
+
+      - name: Arquivos que não podem faltar
+        run: |
+          for f in CNAME .nojekyll robots.txt sitemap.xml feed.xml 404.html \
+                   manifest.webmanifest assets/favicon.svg; do
+            [ -e "$f" ] || { echo "::error::falta $f"; exit 1; }
+          done
+          echo "ok"

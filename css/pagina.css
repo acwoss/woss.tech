@@ -1,0 +1,134 @@
+/* ═══════════════════════════════════════════════════════════════════
+   pagina.css — páginas simples (arquivo, sobre, 404): cabeçalho com
+   migalhas, título e uma linha de apoio, mais prosa curta.
+   Depende de base.css. Publicação usa publicacao.css, não este.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pagina-head {
+  padding: clamp(104px, 14vh, 156px) 0 clamp(30px, 5vw, 48px);
+  border-bottom: 1px solid var(--line);
+}
+
+.migalhas {
+  display: block;
+  color: var(--ink-45);
+  margin: 0 0 20px;
+}
+.migalhas a {
+  border-bottom: 1px solid transparent;
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.migalhas a:hover { color: var(--accent-ink); border-bottom-color: var(--accent); }
+.migalhas span { opacity: .45; padding-inline: .3em; }
+
+.pagina-titulo {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -.024em;
+  margin: 0 0 16px;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+.pagina-titulo em { font-style: italic; color: var(--accent); }
+
+.pagina-lede {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--ink-70);
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* ---------- prosa curta (sobre, 404) ---------- */
+.pagina-corpo {
+  padding: clamp(40px, 6vw, 72px) 0 clamp(56px, 8vw, 96px);
+}
+
+.prosa {
+  max-width: 66ch;
+}
+.prosa p,
+.prosa ul,
+.prosa ol {
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: var(--ink-70);
+  margin: 0 0 1.3em;
+}
+.prosa h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  line-height: 1.14;
+  letter-spacing: -.016em;
+  color: var(--ink);
+  margin: 2em 0 .6em;
+}
+.prosa strong { color: var(--ink); font-weight: 600; }
+.prosa em { font-style: italic; }
+.prosa a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--accent);
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.prosa a:hover { color: var(--accent-ink); background: var(--accent-soft); }
+.prosa ul, .prosa ol { padding-left: 1.35em; }
+.prosa li { margin-bottom: .45em; }
+.prosa li::marker { color: var(--accent); }
+.prosa code {
+  font-family: var(--mono);
+  font-size: .86em;
+  padding: .12em .38em;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink);
+  font-variant-ligatures: none;
+}
+
+/* ---------- lista de contatos ---------- */
+.contatos {
+  list-style: none;
+  display: grid;
+  gap: 1px;
+  margin: 2em 0 0;
+  padding: 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+  max-width: 66ch;
+}
+.contatos li { background: var(--paper); }
+.contatos a {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 0 !important;
+  background: none !important;
+  transition: background .2s var(--ease);
+}
+.contatos a:hover { background: var(--surface) !important; }
+.contatos .rotulo {
+  font-family: var(--mono);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-45);
+  min-width: 8ch;
+}
+.contatos .valor { color: var(--ink); }
+.contatos a:hover .valor { color: var(--accent-ink); }
+
+/* ---------- 404 ---------- */
+.erro-ascii {
+  font-family: var(--mono);
+  font-size: clamp(8px, 1.1vw, 12px);
+  line-height: 1.05;
+  color: var(--ink-20);
+  white-space: pre;
+  margin: 0 0 32px;
+  overflow: hidden;
+  user-select: none;
+}

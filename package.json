@@ -1,0 +1,19 @@
+{
+  "name": "woss.tech",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blog pessoal de Anderson Woss — HTML, CSS e JS escritos à mão, sem framework.",
+  "homepage": "https://woss.tech",
+  "repository": { "type": "git", "url": "git+https://github.com/acwoss/woss.tech.git" },
+  "author": "Anderson Woss <anderson@woss.tech>",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "og": "node scripts/og.mjs",
+    "dev": "python3 -m http.server 8000",
+    "publicar": "npm run build && npm run og"
+  }
+}

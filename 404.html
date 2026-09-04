@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Página não encontrada — woss.tech</title>
+<meta name="description" content="Esta página não existe em woss.tech.">
+<meta name="robots" content="noindex, follow">
+
+<meta name="author" content="Anderson Woss">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f5f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0b0a" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="alternate" type="application/rss+xml" title="woss.tech" href="/feed.xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/pagina.css">
+
+<script>
+  try {
+    var t = localStorage.getItem('tema');
+    if (t === 'claro' || t === 'escuro') {
+      document.documentElement.dataset.theme = t === 'claro' ? 'light' : 'dark';
+    }
+  } catch (e) {}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="nav">
+  <div class="nav__inner shell">
+    <a class="brand mono" href="/">woss<span class="brand__dot">.</span>tech</a>
+    <nav class="nav__links" aria-label="Seções do site">
+      <a href="/publicacoes/">Publicações</a>
+      <a href="/#topicos">Tópicos</a>
+      <a href="/sobre.html">Sobre</a>
+      <a href="/feed.xml">RSS</a>
+    </nav>
+    <button class="theme-toggle mono" type="button" data-theme-toggle aria-live="polite">
+      <span class="theme-toggle__icon" aria-hidden="true"></span>
+      <span data-theme-label>escuro</span>
+    </button>
+  </div>
+</header>
+
+<main id="conteudo">
+  <header class="pagina-head">
+    <div class="shell">
+      <pre class="erro-ascii" aria-hidden="true">
+  ####    ###    ####
+ ##  ##  ## ##  ##  ##
+ ##  ##  ## ##  ##  ##
+ ##  ##  ## ##  ##  ##
+  ####    ###    ####
+</pre>
+      <nav class="migalhas mono" aria-label="Você está em">
+        <a href="/">woss.tech</a> <span aria-hidden="true">/</span> não encontrado
+      </nav>
+      <h1 class="pagina-titulo">Esta página não <em>existe</em>.</h1>
+      <p class="pagina-lede">
+        Ou nunca existiu, ou mudou de endereço e eu esqueci de deixar o
+        redirecionamento. As duas hipóteses são culpa minha.
+      </p>
+    </div>
+  </header>
+
+  <div class="pagina-corpo">
+    <div class="shell">
+      <div class="prosa">
+        <p>Daqui você pode:</p>
+        <ul>
+          <li><a href="/">voltar para a página inicial</a>;</li>
+          <li><a href="/publicacoes/">ver todas as publicações</a>;</li>
+          <li><a href="mailto:anderson@woss.tech">me avisar do link quebrado</a> — se você chegou aqui por um link meu, eu quero saber.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="shell footer__inner">
+    <p class="mono">© 2026 Anderson Woss · woss.tech — escrito à mão, sem CMS.</p>
+    <p class="mono footer__note">
+      <a href="https://github.com/acwoss/woss.tech" rel="noopener">código do site</a>
+    </p>
+  </div>
+</footer>
+
+<script defer src="/js/site.js"></script>
+</body>
+</html>
