@@ -1,0 +1,14 @@
+# Nada de dependência: este projeto não tem nenhuma.
+node_modules/
+package-lock.json
+
+# Sistema operacional e editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Rascunho local que não deve subir
+*.local.html
+/rascunhos/

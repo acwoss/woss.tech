@@ -1,0 +1,6 @@
+# woss.tech — tudo é público e indexável.
+User-agent: *
+Allow: /
+Disallow: /docs/
+
+Sitemap: https://woss.tech/sitemap.xml
