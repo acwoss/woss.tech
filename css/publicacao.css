@@ -1,0 +1,731 @@
+/* ═══════════════════════════════════════════════════════════════════
+   publicacao.css — tipografia e componentes de uma publicação.
+
+   Depende de css/base.css (tokens, nav, rodapé, utilitários).
+   Carregue nesta ordem:
+     <link rel="stylesheet" href="/css/base.css">
+     <link rel="stylesheet" href="/css/publicacao.css">
+
+   O site é só HTML: cada publicação é um arquivo livre. O que este
+   arquivo garante é que os elementos recorrentes — medida de leitura,
+   escala tipográfica, diagrama, código, callout, tabela, nota de pé —
+   tenham a mesma forma em todas elas.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════ progresso de leitura ═══════════════════════ */
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 60;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ═══════════════════════ cabeçalho da publicação ═══════════════════════ */
+.post-head {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(104px, 14vh, 168px) 0 clamp(34px, 5vw, 54px);
+  border-bottom: 1px solid var(--line);
+}
+
+/* mesma faixa ASCII da home, em versão baixa e bem mais discreta */
+.post-head__ascii {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  /* a faixa começa ABAIXO da nav: sem isso a marca do site fica
+     ilegível sobre os caracteres, já que a nav no topo é transparente */
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0, transparent 52px, #000 112px,
+      rgba(0,0,0,.32) 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      transparent 0, transparent 52px, #000 112px,
+      rgba(0,0,0,.32) 62%, transparent 100%);
+  opacity: .55;
+}
+
+.post-head__inner { max-width: 78ch; }
+
+.post-head__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-45);
+  margin-bottom: 26px;
+  transition: color .2s var(--ease);
+}
+.post-head__back span { transition: transform .25s var(--ease); }
+.post-head__back:hover { color: var(--accent-ink); }
+.post-head__back:hover span { transform: translateX(-4px); }
+
+.post-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 10px;
+  color: var(--ink-45);
+  margin: 0 0 16px;
+}
+.post-head__meta .tag {
+  color: var(--accent-ink);
+  border: 1px solid var(--accent-soft);
+  background: var(--accent-soft);
+  border-radius: 100px;
+  padding: 3px 10px;
+}
+.post-head__meta .sep { opacity: .45; }
+
+.post-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 5.6vw, 3.9rem);
+  line-height: 1.03;
+  letter-spacing: -.024em;
+  margin: 0 0 20px;
+  max-width: 26ch;
+  text-wrap: balance;
+}
+.post-title em { font-style: italic; color: var(--accent); }
+
+/* linha de apoio: resume a tese em uma frase */
+.post-standfirst {
+  font-size: clamp(1.06rem, 1.7vw, 1.3rem);
+  line-height: 1.55;
+  color: var(--ink-70);
+  max-width: 54ch;
+  margin: 0;
+}
+
+/* ═══════════════════════ estrutura da página ═══════════════════════ */
+.post-wrap {
+  width: 100%;
+  /* Largo de propósito: a medida de leitura continua presa em 68ch pela
+     grade do .article — o espaço extra é para diagrama, código e tabela
+     (os .bleed), que precisam dele. Com as duas colunas laterais de
+     180px comendo 456px do total, este número tem de ser generoso ou o
+     .bleed acaba do mesmo tamanho do texto e a grade perde a função. */
+  max-width: 1520px;
+  margin-inline: auto;
+  padding: clamp(40px, 6vw, 72px) var(--gutter) 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+/* No desktop: sumário na coluna da esquerda e uma coluna vazia de igual
+   largura na direita. É o vão da direita que deixa o artigo — e portanto
+   a medida de leitura — centralizado na TELA, não deslocado para o lado
+   pelo sumário. */
+@media (min-width: 1200px) {
+  .post-wrap {
+    grid-template-columns: 180px minmax(0, 1fr) 180px;
+    column-gap: 48px;
+  }
+  .post-wrap > .toc     { grid-column: 1; }
+  .post-wrap > .article { grid-column: 2; }
+}
+
+/* ═══════════════════════ sumário ═══════════════════════ */
+.toc {
+  margin: 0 0 46px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+@media (min-width: 1200px) {
+  .toc {
+    position: sticky;
+    top: 96px;
+    align-self: start;
+    margin: 0;
+    padding: 0 0 0 14px;
+    border: 0;
+    border-left: 1px solid var(--line);
+    background: none;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+  }
+}
+
+.toc__box { margin: 0; }
+
+.toc__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-45);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .64rem;
+  margin: 0 0 12px;
+  cursor: pointer;
+  list-style: none;
+}
+.toc__label::-webkit-details-marker { display: none; }
+
+/* seta que gira ao abrir — só faz sentido enquanto é recolhível */
+.toc__label::after {
+  content: "+";
+  margin-left: auto;
+  font-size: .9rem;
+  line-height: 1;
+  color: var(--ink-20);
+  transition: transform .2s var(--ease);
+}
+.toc__box[open] > .toc__label::after { content: "−"; }
+
+@media (min-width: 1200px) {
+  .toc__label { cursor: default; }
+  .toc__label::after { display: none; }
+}
+
+.toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.toc__list li[data-nivel="3"] { padding-left: 14px; }
+
+.toc a {
+  display: block;
+  color: var(--ink-45);
+  font-family: var(--mono);
+  font-size: .72rem;
+  line-height: 1.4;
+  letter-spacing: .01em;
+  transition: color .2s var(--ease);
+}
+.toc a:hover { color: var(--ink); }
+.toc a.is-active { color: var(--accent-ink); }
+
+/* ═══════════════════════ corpo do artigo ═══════════════════════
+   Grade de três colunas: o texto vive na do meio (a "medida"), e
+   qualquer elemento com .bleed atravessa as três — é assim que
+   diagrama, código e tabela ganham mais largura que o texto. */
+.article {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    min(68ch, 100%)
+    minmax(0, 1fr);
+  counter-reset: figura;
+  padding-bottom: clamp(48px, 7vw, 88px);
+}
+
+.article > * {
+  grid-column: 2;
+  min-width: 0;
+}
+.article > .bleed { grid-column: 1 / -1; }
+
+/* ---------- texto corrido ---------- */
+.article p,
+.article ul,
+.article ol {
+  font-size: 1.07rem;
+  line-height: 1.72;
+  color: var(--ink-70);
+  margin: 0 0 1.35em;
+}
+
+.article > p:first-of-type::first-letter {
+  /* capitular discreta: marca o começo do texto sem virar enfeite */
+  font-family: var(--serif);
+  font-size: 3.1em;
+  line-height: .82;
+  float: left;
+  padding: .06em .09em 0 0;
+  color: var(--ink);
+}
+
+.article strong { color: var(--ink); font-weight: 600; }
+.article em { font-style: italic; }
+
+.article a:not(.btn):not(.link-arrow) {
+  color: var(--ink);
+  border-bottom: 1px solid var(--accent);
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.article a:not(.btn):not(.link-arrow):hover {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+
+/* ---------- hierarquia ---------- */
+.article h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  line-height: 1.12;
+  letter-spacing: -.018em;
+  color: var(--ink);
+  margin: 2.1em 0 .7em;
+  scroll-margin-top: 96px;
+}
+
+.article h3 {
+  font-size: 1.06rem;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  color: var(--ink);
+  margin: 1.9em 0 .55em;
+  scroll-margin-top: 96px;
+}
+
+.article h4 {
+  font-family: var(--mono);
+  font-size: .78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-45);
+  margin: 1.7em 0 .5em;
+}
+
+/* âncora que aparece no hover do título */
+.heading-anchor {
+  margin-left: .4em;
+  color: var(--ink-20);
+  font-family: var(--mono);
+  font-size: .6em;
+  opacity: 0;
+  border: 0 !important;
+  background: none !important;
+  transition: opacity .2s var(--ease), color .2s var(--ease);
+}
+h2:hover .heading-anchor,
+h3:hover .heading-anchor,
+.heading-anchor:focus-visible { opacity: 1; }
+.heading-anchor:hover { color: var(--accent) !important; }
+
+/* ---------- listas ---------- */
+.article ul, .article ol { padding-left: 1.35em; }
+.article li { margin-bottom: .5em; }
+.article li::marker { color: var(--accent); }
+.article ol li::marker { color: var(--ink-45); font-family: var(--mono); font-size: .85em; }
+
+/* ---------- citação ---------- */
+.article blockquote {
+  margin: 2em 0;
+  padding: 2px 0 2px 22px;
+  border-left: 2px solid var(--accent);
+}
+.article blockquote p {
+  font-family: var(--serif);
+  font-size: 1.32rem;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: .5em;
+}
+.article blockquote cite {
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-style: normal;
+  color: var(--ink-45);
+  letter-spacing: .03em;
+}
+
+/* ---------- separador ---------- */
+.article hr {
+  grid-column: 2;
+  border: 0;
+  height: 1px;
+  background: var(--line);
+  margin: 2.6em 0;
+  position: relative;
+}
+.article hr::after {
+  content: "///";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--paper);
+  padding: 0 12px;
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--ink-20);
+  letter-spacing: .2em;
+}
+
+/* ═══════════════════════ callout ═══════════════════════ */
+.callout {
+  margin: 2em 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ink-20);
+  background: var(--surface);
+}
+.callout > :last-child { margin-bottom: 0 !important; }
+
+.callout__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-45);
+  margin: 0 0 10px;
+}
+.callout__label::before {
+  content: attr(data-marca);
+  color: var(--ink-20);
+}
+
+.callout p { font-size: .98rem; margin-bottom: .8em; }
+
+.callout--nota      { border-left-color: var(--ink-45); }
+.callout--atencao   { border-left-color: var(--accent); background: var(--accent-soft); }
+.callout--atencao .callout__label { color: var(--accent-ink); }
+.callout--atencao .callout__label::before { color: var(--accent); }
+
+/* ═══════════════════════ código ═══════════════════════ */
+.article :not(pre) > code {
+  font-family: var(--mono);
+  font-size: .86em;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  padding: .12em .38em;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.code {
+  margin: 2.2em 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.code__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-deep);
+}
+
+.code__lang {
+  font-family: var(--mono);
+  font-size: .66rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-45);
+}
+.code__file { color: var(--ink-20); }
+
+.code__copy {
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 100px;
+  padding: 4px 11px;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .06em;
+  color: var(--ink-45);
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.code__copy:hover { color: var(--ink); border-color: var(--ink-20); }
+.code__copy[data-copiado="1"] { color: var(--accent-ink); border-color: var(--accent); }
+
+.code pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: .82rem;
+  line-height: 1.62;
+  tab-size: 2;
+  /* Ligadura em bloco de código MENTE: a JetBrains Mono desenha `!=`
+     como `≠` e `->` como `→`, então o leitor vê um caractere que não
+     está no código e que não vem no copiar. Desligado. */
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
+.code pre code {
+  font: inherit;
+  color: var(--ink-70);
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.code figcaption {
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-variant-ligatures: none;
+  line-height: 1.5;
+  color: var(--ink-45);
+}
+
+/* ---------- highlight.js em duas tintas + acento ----------
+   A paleta do site tem uma cor só. Em vez de importar um tema de
+   sete cores, o realce usa três níveis da tinta mais o acento nas
+   palavras-chave: legível nos dois temas e sem estourar a paleta. */
+.hljs-comment,
+.hljs-quote,
+.hljs-meta        { color: var(--ink-45); font-style: italic; }
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-type,
+.hljs-built_in,
+.hljs-name        { color: var(--accent-ink); }
+
+.hljs-string,
+.hljs-number,
+.hljs-regexp,
+.hljs-symbol,
+.hljs-attr,
+.hljs-title,
+.hljs-section     { color: var(--ink); }
+
+.hljs-title.function_,
+.hljs-title.class_ { color: var(--ink); font-weight: 500; }
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-params,
+.hljs-attribute,
+.hljs-punctuation { color: var(--ink-70); }
+
+.hljs-addition    { color: var(--ink); }
+.hljs-deletion    { color: var(--accent-ink); text-decoration: line-through; }
+.hljs-emphasis    { font-style: italic; }
+.hljs-strong      { font-weight: 600; }
+
+/* ═══════════════════════ diagrama (Mermaid) ═══════════════════════ */
+/* O diagrama é parte do texto, não um cartão colado nele: sem moldura,
+   sem fundo próprio e sem barra de rolagem. Quem garante que ele caiba é
+   o `useMaxWidth: true` do post.js. */
+.diagram {
+  margin: 2.6em 0;
+  counter-increment: figura;
+}
+
+.diagram__canvas {
+  padding: 4px 0;
+}
+
+/* enquanto o Mermaid não rodou, o código-fonte fica escondido —
+   evita ver o texto do grafo piscar antes do SVG */
+.mermaid { margin: 0; display: block; font-family: var(--mono); font-size: .78rem; }
+.mermaid:not([data-processed]) { visibility: hidden; }
+
+/* O Mermaid emite width="100%" com um max-width do tamanho natural:
+   o desenho encolhe até caber e nunca é esticado além do próprio
+   tamanho. Como ele pode ser reduzido, o rótulo é definido grande
+   (15px no themeCSS) para sobreviver à redução. */
+.mermaid svg {
+  display: block;
+  margin-inline: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+/* legenda sem separador, centrada sob o desenho e com medida própria
+   para não virar uma linha larguíssima de texto pequeno */
+/* Tela estreita: o desenho fica no tamanho natural (ver ajustarEscala
+   em post.js) e se arrasta. Barra escondida — no celular ela nem existe;
+   isto é para janela estreita no desktop. */
+@media (max-width: 899px) {
+  .diagram__canvas {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .diagram__canvas::-webkit-scrollbar { display: none; }
+}
+
+.diagram figcaption {
+  max-width: 70ch;
+  margin: 14px auto 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: .71rem;
+  line-height: 1.6;
+  color: var(--ink-45);
+}
+.diagram figcaption::before {
+  content: "fig. " counter(figura) " — ";
+  color: var(--accent-ink);
+}
+
+/* Mermaid indisponível (offline, CDN fora): mostra o fonte do grafo
+   em vez de um buraco na página */
+.diagram--sem-js .mermaid {
+  visibility: visible;
+  white-space: pre;
+  overflow-x: auto;
+  padding: 14px 0 14px 16px;
+  border-left: 2px solid var(--line);
+  color: var(--ink-45);
+  text-align: left;
+}
+
+/* ═══════════════════════ tabela ═══════════════════════ */
+.table-wrap {
+  margin: 2.2em 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+.article thead th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ink-45);
+  font-weight: 500;
+  padding: 12px 16px;
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.article tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-70);
+  vertical-align: top;
+}
+.article tbody tr:last-child td { border-bottom: 0; }
+.article tbody tr:hover td { background: var(--surface); }
+.article td code { white-space: nowrap; }
+
+/* ═══════════════════════ notas de pé ═══════════════════════ */
+.article sup.ref { font-size: .7em; line-height: 0; }
+.article sup.ref a {
+  color: var(--accent-ink);
+  border: 0 !important;
+  background: none !important;
+  padding: 0 .1em;
+  font-family: var(--mono);
+}
+
+.footnotes {
+  margin-top: 3em;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.footnotes .callout__label { margin-bottom: 14px; }
+.footnotes ol { font-size: .88rem !important; color: var(--ink-45) !important; }
+.footnotes li { scroll-margin-top: 96px; }
+.footnotes a.volta {
+  font-family: var(--mono);
+  font-size: .78em;
+  border: 0 !important;
+  background: none !important;
+  color: var(--accent-ink);
+}
+
+/* ═══════════════════════ rodapé da publicação ═══════════════════════ */
+.post-end {
+  border-top: 1px solid var(--line);
+  background: var(--paper-deep);
+  padding: clamp(40px, 6vw, 68px) 0;
+}
+
+.post-end__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+}
+@media (max-width: 760px) {
+  .post-end__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.autor {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.autor__selo {
+  flex: none;
+  width: 52px; height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-family: var(--mono);
+  font-size: .9rem;
+  color: var(--accent-ink);
+}
+.autor__nome { font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+.autor p { font-size: .92rem; color: var(--ink-45); margin: 0 0 10px; max-width: 46ch; }
+.autor__links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0; padding: 0;
+}
+.autor__links a {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--ink-45);
+  border-bottom: 1px solid transparent;
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.autor__links a:hover { color: var(--accent-ink); border-bottom-color: var(--accent); }
+
+.vizinhos { display: grid; gap: 12px; align-content: start; }
+.vizinho {
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  transition: border-color .2s var(--ease), background .2s var(--ease);
+}
+.vizinho:hover { border-color: var(--accent); background: var(--surface); }
+.vizinho__dir {
+  display: block;
+  font-family: var(--mono);
+  font-size: .64rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--ink-45);
+  margin-bottom: 6px;
+}
+.vizinho__titulo {
+  font-family: var(--serif);
+  font-size: 1.14rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+/* ═══════════════════════ impressão ═══════════════════════ */
+@media print {
+  .nav, .progress, .toc, .post-head__ascii, .code__copy,
+  .vizinhos, .hero__scroll { display: none !important; }
+  .post-wrap { grid-template-columns: minmax(0, 1fr); max-width: none; }
+  .article { grid-template-columns: minmax(0, 1fr); }
+  .article > *, .article > .bleed { grid-column: 1; }
+  .post-head { padding-top: 0; }
+  a { border: 0 !important; }
+}
