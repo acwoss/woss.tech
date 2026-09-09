@@ -128,6 +128,18 @@ function colunaDo(html, indice) {
   return indice - linha - 1;
 }
 
+/** Renumera os rótulos de seção da home na ordem do documento.
+    A seção "mais publicações" só existe quando há uma segunda publicação,
+    e o número dos rótulos seguintes é escrito à mão: com uma publicação só,
+    a home pulava do 01 para o 03. O número é derivado da ordem, então quem
+    manda é o build — como no tempo de leitura e na contagem de palavras. */
+function renumerarSecoes(html) {
+  let n = 0;
+  return html.replace(
+    /(<p class="section-label mono">)\d+(\s*—)/g,
+    (_, abre, resto) => `${abre}${String(++n).padStart(2, '0')}${resto}`);
+}
+
 async function gravar(caminho, conteudo) {
   const abs = join(RAIZ, caminho);
   let atual = null;
@@ -384,6 +396,7 @@ let home = await readFile(join(RAIZ, 'index.html'), 'utf8');
 home = injetar(home, 'destaque', blocoDestaque(posts[0]));
 home = injetar(home, 'recentes', secaoRecentes(posts.slice(1)));
 home = injetar(home, 'topicos', cartoesDeTopico(posts));
+home = renumerarSecoes(home);
 await gravar('index.html', home);
 
 // publicacoes/index.html
