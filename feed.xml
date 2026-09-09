@@ -11,8 +11,17 @@
     <copyright>© 2026 Anderson Woss</copyright>
     <managingEditor>anderson@woss.tech (Anderson Woss)</managingEditor>
     <webMaster>anderson@woss.tech (Anderson Woss)</webMaster>
-    <lastBuildDate>Fri, 04 Sep 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2026 09:00:00 +0000</lastBuildDate>
     <generator>scripts/build.mjs</generator>
+    <item>
+      <title>Mermaid com a cara do site</title>
+      <link>https://woss.tech/publicacoes/2026-09-09-mermaid-com-a-cara-do-site.html</link>
+      <guid isPermaLink="true">https://woss.tech/publicacoes/2026-09-09-mermaid-com-a-cara-do-site.html</guid>
+      <pubDate>Wed, 09 Sep 2026 09:00:00 +0000</pubDate>
+      <category>Engenharia</category>
+      <dc:creator>Anderson Woss</dc:creator>
+      <description>Um catálogo de nove diagramas do Mermaid na paleta deste site, a camada de tema que faz isso e as larguras que eu medi no navegador.</description>
+    </item>
     <item>
       <title>Um blog sem framework: o que ganhei e o que perdi</title>
       <link>https://woss.tech/publicacoes/2026-09-04-um-blog-sem-framework.html</link>
