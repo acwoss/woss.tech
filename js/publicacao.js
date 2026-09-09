@@ -23,6 +23,18 @@
   var $  = function (s, ctx) { return (ctx || document).querySelector(s); };
   var $$ = function (s, ctx) { return [].slice.call((ctx || document).querySelectorAll(s)); };
 
+  /** Escapa texto que vai entrar via innerHTML.
+   *  Não é teatro: um título como `O <code>&lt;br/&gt;</code> que
+   *  desaparece` tem `O <br/> que desaparece` no textContent, e inserir
+   *  isso sem escapar faz o navegador interpretar a tag — o item do
+   *  sumário quebrava em duas linhas. Vale para qualquer texto vindo do
+   *  documento, sempre. */
+  function esc(texto) {
+    return String(texto).replace(/[&<>"]/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch];
+    });
+  }
+
   var artigo = $('.article');
 
   /* ═══════════════════════════════════════════════════════════════
@@ -303,7 +315,7 @@
         '<ul class="toc__list">' +
         itens.map(function (i) {
           return '<li data-nivel="' + i.nivel + '">' +
-                 '<a href="#' + i.id + '">' + i.texto + '</a></li>';
+                 '<a href="#' + i.id + '">' + esc(i.texto) + '</a></li>';
         }).join('') +
         '</ul>' +
       '</details>';
