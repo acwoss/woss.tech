@@ -205,10 +205,6 @@
   }
 }
 
-@media (max-width: 520px) {
-  .hero__kicker-loc { display: none; }
-}
-
 /* ═══════════════════════ DESTAQUE ═══════════════════════ */
 .featured {
   padding: clamp(56px, 8vw, 104px) 0;
