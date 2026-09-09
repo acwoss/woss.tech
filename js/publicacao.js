@@ -141,7 +141,54 @@
 
           /* o acento é a única cor do site: entra nos destaques */
           errorBkgColor:     cor('--mm-note'),
-          errorTextColor:    cor('--mm-text')
+          errorTextColor:    cor('--mm-text'),
+
+          /* Os tipos de GRÁFICO não obedecem aos themeVariables de cima:
+             cada um tem o próprio bloco e a própria paleta embutida. Sem
+             isto o xychart desenha barra bege — uma cor que não existe
+             neste site. Uma série só, na cor de acento. */
+          xyChart: {
+            backgroundColor:  'transparent',
+            titleColor:       cor('--mm-text'),
+            xAxisLabelColor:  cor('--mm-text'),
+            xAxisTitleColor:  cor('--mm-text'),
+            xAxisTickColor:   cor('--mm-line'),
+            xAxisLineColor:   cor('--mm-line'),
+            yAxisLabelColor:  cor('--mm-text'),
+            yAxisTitleColor:  cor('--mm-text'),
+            yAxisTickColor:   cor('--mm-line'),
+            yAxisLineColor:   cor('--mm-line'),
+            plotColorPalette: cor('--accent')
+          },
+
+          /* Mesmo caso do xychart: o gitGraph tem paleta numerada própria
+             (git0..git7) e ignora primaryColor. Sem isto os ramos saem
+             caqui. Aqui: a main na cor da linha, o ramo no acento. */
+          git0: cor('--mm-line'),
+          git1: cor('--accent'),
+          git2: cor('--mm-line'),
+          git3: cor('--accent'),
+          gitBranchLabel0: cor('--mm-text'),
+          // texto claro nos ramos que caem no acento: contraste
+          gitBranchLabel1: cor('--surface'),
+          gitBranchLabel2: cor('--mm-text'),
+          gitBranchLabel3: cor('--surface'),
+          commitLabelColor: cor('--mm-text'),
+          commitLabelBackground: cor('--surface'),
+          tagLabelColor: cor('--mm-text'),
+          tagLabelBackground: cor('--mm-note'),
+          tagLabelBorder: cor('--mm-note-border'),
+
+          /* E de novo: o mindmap pinta por cScale0..11. A raiz recebe o
+             acento; os ramos ficam na cor de nó do site. */
+          cScale0: cor('--accent'),
+          cScaleLabel0: cor('--surface'),
+          cScale1: cor('--mm-cluster'),
+          cScaleLabel1: cor('--mm-text'),
+          cScale2: cor('--mm-node'),
+          cScaleLabel2: cor('--mm-text'),
+          cScale3: cor('--mm-alt'),
+          cScaleLabel3: cor('--mm-text')
         },
         // reforço em CSS do que themeVariables não alcança
         themeCSS: [
