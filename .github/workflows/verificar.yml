@@ -124,6 +124,80 @@ jobs:
           sys.exit(1 if erros else 0)
           PY
 
+      - name: Cartão de compartilhamento existe
+        run: |
+          python3 - <<'PY'
+          import glob, os, re, sys
+          from urllib.parse import urlparse, unquote
+          # O checador de links ignora URL absoluta, então og:image passava
+          # batido: esquecer `npm run og` numa publicação nova só aparecia
+          # depois, como retângulo cinza no link compartilhado.
+          SITE = 'https://woss.tech'
+          erros = 0
+          for arq in sorted(glob.glob('*.html') + glob.glob('publicacoes/*.html')):
+              if arq == '404.html':
+                  continue
+              html = open(arq, encoding='utf-8').read()
+              for prop in ('og:image', 'twitter:image'):
+                  m = re.search(
+                      rf'(?:property|name)="{re.escape(prop)}"\s+content="([^"]+)"', html)
+                  if not m:
+                      print(f'::error file={arq}::falta {prop}')
+                      erros += 1
+                      continue
+                  url = m.group(1)
+                  if not url.startswith(SITE + '/'):
+                      print(f'::error file={arq}::{prop} não aponta para {SITE}: {url}')
+                      erros += 1
+                      continue
+                  alvo = unquote(urlparse(url).path).lstrip('/')
+                  if not os.path.exists(alvo):
+                      print(f'::error file={arq}::{prop} aponta para {alvo}, '
+                            f'que não existe — rode `npm run og`')
+                      erros += 1
+                  else:
+                      print('ok', arq, prop, '->', alvo)
+          sys.exit(1 if erros else 0)
+          PY
+
+      - name: Âncoras internas existem
+        run: |
+          python3 - <<'PY'
+          import glob, os, re, sys
+          from urllib.parse import urlparse, unquote
+          paginas = sorted(glob.glob('*.html') + glob.glob('publicacoes/*.html')
+                           + glob.glob('docs/*.html'))
+          ids = {a: set(re.findall(r'\sid="([^"]+)"', open(a, encoding='utf-8').read()))
+                 for a in paginas}
+          erros = 0
+
+          def resolver(arq, caminho):
+              alvo = (caminho.lstrip('/') if caminho.startswith('/')
+                      else os.path.normpath(os.path.join(os.path.dirname(arq), caminho)))
+              if alvo == '' or alvo.endswith(('/', os.sep)):
+                  alvo = os.path.join(alvo, 'index.html')
+              return alvo
+
+          for arq in paginas:
+              html = open(arq, encoding='utf-8').read()
+              for href in re.findall(r'href="([^"]+)"', html):
+                  # href="#" é link de exemplo na prosa, não navegação
+                  if href == '#' or href.startswith(('http', 'mailto:', 'data:')):
+                      continue
+                  caminho, _, frag = href.partition('#')
+                  if not frag:
+                      continue
+                  alvo = arq if not caminho else resolver(arq, unquote(urlparse(caminho).path))
+                  if alvo not in ids:
+                      continue  # página fora do conjunto; o outro passo cuida do arquivo
+                  if frag not in ids[alvo]:
+                      print(f'::error file={arq}::âncora #{frag} não existe em {alvo}')
+                      erros += 1
+                  else:
+                      print('ok', arq, '->', f'{alvo}#{frag}')
+          sys.exit(1 if erros else 0)
+          PY
+
       - name: Arquivos que não podem faltar
         run: |
           for f in CNAME .nojekyll robots.txt sitemap.xml feed.xml 404.html \
