@@ -11,8 +11,17 @@
     <copyright>© 2026 Anderson Woss</copyright>
     <managingEditor>anderson@woss.tech (Anderson Woss)</managingEditor>
     <webMaster>anderson@woss.tech (Anderson Woss)</webMaster>
-    <lastBuildDate>Wed, 09 Sep 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 09:00:00 +0000</lastBuildDate>
     <generator>scripts/build.mjs</generator>
+    <item>
+      <title>Não comece a sessão do zero: Codebase Memory MCP</title>
+      <link>https://woss.tech/publicacoes/2026-09-10-nao-comece-a-sessao-do-zero.html</link>
+      <guid isPermaLink="true">https://woss.tech/publicacoes/2026-09-10-nao-comece-a-sessao-do-zero.html</guid>
+      <pubDate>Thu, 10 Sep 2026 09:00:00 +0000</pubDate>
+      <category>Ferramentas</category>
+      <dc:creator>Anderson Woss</dc:creator>
+      <description>Quatro perguntas sobre um código que o agente não conhece, medidas nas duas rotas: 8 kB pelo grafo, 680 kB lendo arquivo. E uma que o grep não responde.</description>
+    </item>
     <item>
       <title>Mermaid com a cara do site</title>
       <link>https://woss.tech/publicacoes/2026-09-09-mermaid-com-a-cara-do-site.html</link>

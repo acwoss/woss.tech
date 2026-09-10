@@ -584,6 +584,111 @@ h3:hover .heading-anchor,
   text-align: left;
 }
 
+/* ═══════════════════════ gráfico (SVG à mão) ═══════════════════════ */
+/* Ao contrário do Mermaid, este SVG é escrito no próprio texto e usa os
+   tokens de cor por `var(--…)`. Isso significa que ele **herda** o tema:
+   trocar claro/escuro não exige redesenhar nem uma linha de JavaScript.
+   É o argumento a favor de desenhar gráfico à mão em vez de importar uma
+   biblioteca — além de não custar nenhum quilobyte de dependência.
+   Compartilha o contador `figura` com .diagram: a numeração das legendas
+   é contínua entre desenho e gráfico. */
+.chart {
+  margin: 2.6em 0;
+  counter-increment: figura;
+}
+
+.chart__canvas {
+  padding: 4px 0;
+}
+
+.chart svg {
+  display: block;
+  margin-inline: auto;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Rótulo dentro do gráfico. `text-anchor` é atributo do SVG; aqui fica só
+   o que é tipografia, para o gráfico seguir a fonte do site. */
+/* Fonte definida grande de propósito: o SVG é reduzido para caber na
+   coluna e o rótulo encolhe na mesma proporção — mesmo problema que o
+   Mermaid tem, mesma saída. */
+.chart text {
+  font-family: var(--mono);
+  fill: var(--ink-45);
+  font-size: 14px;
+}
+.chart .g-rotulo   { fill: var(--ink-70); font-size: 14px; }
+.chart .g-valor    { fill: var(--ink-70); font-size: 14px; font-weight: 500; }
+.chart .g-destaque { fill: var(--accent-ink); font-weight: 500; }
+.chart .g-eixo     { fill: var(--ink-45); font-size: 13px; }
+
+/* Tela estreita: em vez de encolher o gráfico até o rótulo virar borrão,
+   mantém o tamanho natural e deixa arrastar — igual ao .diagram__canvas. */
+@media (max-width: 899px) {
+  .chart__canvas {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .chart__canvas::-webkit-scrollbar { display: none; }
+  .chart svg { width: 760px; max-width: none; }
+}
+
+/* Duas séries e uma só cor de acento: o grafo é o acento, a rota manual é
+   tinta neutra. Nunca duas cores de acento no mesmo desenho. */
+.chart .g-barra-grafo { fill: var(--accent); }
+.chart .g-barra-manual { fill: var(--ink-20); }
+.chart .g-grade { stroke: var(--line); stroke-width: 1; }
+.chart .g-base  { stroke: var(--ink-20); stroke-width: 1; }
+.chart .g-trilha { fill: var(--paper-deep); }
+
+.chart figcaption {
+  max-width: 70ch;
+  margin: 14px auto 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: .71rem;
+  line-height: 1.6;
+  color: var(--ink-45);
+}
+.chart figcaption::before {
+  content: "fig. " counter(figura) " — ";
+  color: var(--accent-ink);
+}
+
+/* Legenda de série, fora do SVG: é texto, e como texto ela reflui no
+   celular em vez de encolher junto com o desenho. */
+.chart__legenda {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 20px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: .69rem;
+  color: var(--ink-45);
+}
+.chart__legenda li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+}
+.chart__legenda li::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  flex: 0 0 auto;
+  background: var(--ink-20);
+}
+.chart__legenda li[data-serie="grafo"]::before { background: var(--accent); }
+
 /* ═══════════════════════ tabela ═══════════════════════ */
 .table-wrap {
   margin: 2.2em 0;
