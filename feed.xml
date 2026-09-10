@@ -14,11 +14,11 @@
     <lastBuildDate>Thu, 10 Sep 2026 09:00:00 +0000</lastBuildDate>
     <generator>scripts/build.mjs</generator>
     <item>
-      <title>Codebase Memory MCP: o agente que já leu o código</title>
-      <link>https://woss.tech/publicacoes/2026-09-10-o-agente-que-ja-leu-o-codigo.html</link>
-      <guid isPermaLink="true">https://woss.tech/publicacoes/2026-09-10-o-agente-que-ja-leu-o-codigo.html</guid>
+      <title>Não comece a sessão do zero: Codebase Memory MCP</title>
+      <link>https://woss.tech/publicacoes/2026-09-10-nao-comece-a-sessao-do-zero.html</link>
+      <guid isPermaLink="true">https://woss.tech/publicacoes/2026-09-10-nao-comece-a-sessao-do-zero.html</guid>
       <pubDate>Thu, 10 Sep 2026 09:00:00 +0000</pubDate>
-      <category>IA</category>
+      <category>Ferramentas</category>
       <dc:creator>Anderson Woss</dc:creator>
       <description>Toda sessão nova de um agente começa como um dev no primeiro dia. Medi esse custo no FastAPI e o que um grafo de código persistente economiza.</description>
     </item>

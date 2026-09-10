@@ -32,7 +32,8 @@ const TOPICOS = {
   'IA':              { marca: '>_', nome: 'IA aplicada',     desc: 'Agentes, LLM em produção, avaliação e o custo de tudo isso.' },
   'Arquitetura':     { marca: '<>', nome: 'Arquitetura',     desc: 'Contratos, limites de serviço e decisões que a gente paga depois.' },
   'Engenharia':      { marca: '{}', nome: 'Engenharia',      desc: 'Teste, revisão, entrega contínua e o ofício em si.' },
-  'Observabilidade': { marca: '##', nome: 'Observabilidade', desc: 'Métrica, log e trace — como saber que ainda está de pé.' }
+  'Observabilidade': { marca: '##', nome: 'Observabilidade', desc: 'Métrica, log e trace — como saber que ainda está de pé.' },
+  'Ferramentas':     { marca: '[]', nome: 'Ferramentas',     desc: 'O que eu instalo, meço e às vezes desinstalo.' }
 };
 
 const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun',
