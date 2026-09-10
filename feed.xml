@@ -11,8 +11,17 @@
     <copyright>© 2026 Anderson Woss</copyright>
     <managingEditor>anderson@woss.tech (Anderson Woss)</managingEditor>
     <webMaster>anderson@woss.tech (Anderson Woss)</webMaster>
-    <lastBuildDate>Wed, 09 Sep 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 09:00:00 +0000</lastBuildDate>
     <generator>scripts/build.mjs</generator>
+    <item>
+      <title>Codebase Memory MCP: o agente que já leu o código</title>
+      <link>https://woss.tech/publicacoes/2026-09-10-o-agente-que-ja-leu-o-codigo.html</link>
+      <guid isPermaLink="true">https://woss.tech/publicacoes/2026-09-10-o-agente-que-ja-leu-o-codigo.html</guid>
+      <pubDate>Thu, 10 Sep 2026 09:00:00 +0000</pubDate>
+      <category>IA</category>
+      <dc:creator>Anderson Woss</dc:creator>
+      <description>Toda sessão nova de um agente começa como um dev no primeiro dia. Medi esse custo no FastAPI e o que um grafo de código persistente economiza.</description>
+    </item>
     <item>
       <title>Mermaid com a cara do site</title>
       <link>https://woss.tech/publicacoes/2026-09-09-mermaid-com-a-cara-do-site.html</link>
