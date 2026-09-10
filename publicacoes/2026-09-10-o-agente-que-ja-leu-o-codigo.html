@@ -72,7 +72,7 @@
   "articleSection": "IA",
   "keywords": ["MCP", "agentes", "grafo de código", "tree-sitter", "LLM"],
   "image": "https://woss.tech/assets/og/2026-09-10-o-agente-que-ja-leu-o-codigo.png",
-  "wordCount": 1379,
+  "wordCount": 1381,
   "author": {
     "@type": "Person",
     "@id": "https://woss.tech/#autor",
@@ -422,18 +422,25 @@ RETURN f.name, f.file_path LIMIT 20</code></pre>
 
     <figure class="code bleed">
       <div class="code__bar">
-        <span class="code__lang mono">json <span class="code__file">· manage_adr, mode=update</span></span>
+        <span class="code__lang mono">markdown <span class="code__file">· o documento que fica gravado</span></span>
         <button class="code__copy mono" type="button">copiar</button>
       </div>
-<pre><code class="language-json">{
-  "project": "fastapi",
-  "mode": "update",
-  "content": "## ARCHITECTURE\nA resolução de dependências tem um único ponto de entrada: solve_dependencies (fastapi/dependencies/utils.py:586-731). O único chamador real é _FrontendRouteGroup._solve_dependencies (fastapi/routing.py:2216-2252).\n\n## PATTERNS\nNão procure a resolução em routing.py: ela delega.\n"
-}</code></pre>
+<pre><code>## ARCHITECTURE
+
+A resolução de dependências tem um único ponto de entrada:
+solve_dependencies (fastapi/dependencies/utils.py:586-731). O único
+chamador real é _FrontendRouteGroup._solve_dependencies
+(fastapi/routing.py:2216-2252).
+
+## PATTERNS
+
+Não procure a resolução em routing.py: ela delega.</code></pre>
       <figcaption>
-        A conclusão que me custou duas consultas fica gravada em 400 bytes. A
-        sessão seguinte chega nela com um <code>manage_adr(mode='get')</code>,
-        antes de tocar em qualquer arquivo.
+        Isso entra pelo campo <code>content</code> de
+        <code>manage_adr(mode='update')</code> e volta inteiro no
+        <code>mode='get'</code>. A conclusão que me custou duas consultas fica
+        gravada em 400 bytes, e a sessão seguinte chega nela antes de tocar em
+        qualquer arquivo.
       </figcaption>
     </figure>
 
