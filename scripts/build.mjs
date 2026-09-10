@@ -84,16 +84,19 @@ function medir(html) {
 
   const prosa = corpo[1]
     .replace(/<pre[\s\S]*?<\/pre>/gi, ' ')
+    .replace(/<svg[\s\S]*?<\/svg>/gi, ' ')   // rótulo de gráfico não é prosa
     .replace(/<figcaption[\s\S]*?<\/figcaption>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&[a-z]+;|&#\d+;/gi, ' ');
 
   const palavras = prosa.split(/\s+/).filter((p) => p.length > 1).length;
   const diagramas = (html.match(/class="mermaid"/g) || []).length;
+  const graficos = (html.match(/<figure class="chart/g) || []).length;
 
   return {
     palavras,
     diagramas,
+    graficos,
     minutos: Math.max(1, Math.round(palavras / 200))
   };
 }
@@ -107,7 +110,8 @@ function sincronizarNumeros(html, m) {
              `$1${m.minutos} min$2`)
     .replace(/("wordCount":\s*)\d+/, `$1${m.palavras}`)
     .replace(/(<span data-gerado="diagramas">)[^<]*(<\/span>)/,
-             `$1${plural(m.diagramas, 'diagrama')}$2`);
+             `$1${plural(m.diagramas, 'diagrama')}` +
+             `${m.graficos ? ` · ${plural(m.graficos, 'gráfico')}` : ''}$2`);
 }
 
 /** Substitui o conteúdo entre <!-- gerado:x --> e <!-- /gerado:x -->. */
@@ -213,7 +217,8 @@ async function lerPublicacoes() {
                  data, topico,
                  minutos: medida ? medida.minutos : 0,
                  palavras: medida ? medida.palavras : 0,
-                 diagramas: medida ? medida.diagramas : 0 });
+                 diagramas: medida ? medida.diagramas : 0,
+                 graficos: medida ? medida.graficos : 0 });
   }
 
   return posts;
@@ -389,7 +394,8 @@ console.log(`${posts.length} publicação(ões):`);
 for (const p of posts) {
   console.log(`  ${p.data}  ${String(p.minutos).padStart(2)} min  ` +
               `${String(p.palavras).padStart(5)} palavras  ` +
-              `${p.diagramas} diagrama(s)  [${p.topico}]  ${p.titulo}`);
+              `${p.diagramas} diagrama(s)  ` +
+              `${p.graficos} gráfico(s)  [${p.topico}]  ${p.titulo}`);
 }
 
 // index.html
