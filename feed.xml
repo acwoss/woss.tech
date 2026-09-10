@@ -20,7 +20,7 @@
       <pubDate>Thu, 10 Sep 2026 09:00:00 +0000</pubDate>
       <category>Ferramentas</category>
       <dc:creator>Anderson Woss</dc:creator>
-      <description>Toda sessão nova de um agente começa como um dev no primeiro dia. Medi esse custo no FastAPI e o que um grafo de código persistente economiza.</description>
+      <description>Quatro perguntas sobre um código que o agente não conhece, medidas nas duas rotas: 8 kB pelo grafo, 680 kB lendo arquivo. E uma que o grep não responde.</description>
     </item>
     <item>
       <title>Mermaid com a cara do site</title>
